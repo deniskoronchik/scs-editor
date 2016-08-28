@@ -1,0 +1,48 @@
+/* Colors:
+ * 8DCBE2
+ * CAE682
+ * FFFFFF
+ * 8DCBE2
+ * 53DCCD
+ * F0EFD0
+ * CC9393
+ */
+
+.CodeMirror, .CodeMirror-linenumbers{
+  color: #D8D8D8;
+  background-color: #1E1E1E;
+  height: 100%
+}
+
+.CodeMirror-selected {
+  background-color: #2E2E2E !important;
+}
+
+.CodeMirror-cursor {
+  border-left: 2px solid white;
+}
+
+.cm-scs-system-keynode {
+  font-weight: bold;
+  color: #D25252;
+  border-bottom: 1px solid #D25252;
+}
+
+.cm-scs-system-idtf {
+  font-weight: bold;
+  color: #88aa88;
+}
+
+.cm-scs-edge, .cm-scs-delim {
+  color: #EFC090;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.cm-scs-symbol {
+  color: #79ABFF;
+}
+
+.cm-scs-delim {
+  color: #BFA4A4;
+}
