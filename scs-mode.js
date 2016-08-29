@@ -88,7 +88,51 @@ function system_idtf_checker() {
   }
 }
 
+var open_content_bracket_code = '['.charCodeAt(0);
+var clode_content_bracket_code = ']'.charCodeAt(0);
+
+var ContentType = {
+  Contour:  1,
+  Link:     2
+}
+
 module.exports = function ScsMode(CodeMirror) {
+  var content_brackets_stack = [];
+
+  function collect_comments(stream, state) {
+    if (stream.match('//')) {
+      stream.skipToEnd();
+      return 'scs-comment';
+    }
+
+    if (stream.match('/*')) {
+      stream.skipTo('*/');
+      stream.match('*/');
+      return 'scs-comment';
+    }
+    return null;
+  }
+
+  function collect_file_link(stream, state) {
+    if (stream.match('"')) {
+      stream.skipTo('"');
+      stream.match('"');
+      return 'scs-file-link';
+    }
+
+    return null;
+  }
+
+  function collect_sc_link_content(stream, state) {
+    var found = stream.eatWhile(function(char) {
+      return char.charCodeAt(0) !== clode_content_bracket_code;
+    });
+    if (found) {
+      return 'scs-link-content';
+    }
+
+    return null;
+  }
 
   function collect_system_idtf(stream, state) {
 
@@ -96,6 +140,8 @@ module.exports = function ScsMode(CodeMirror) {
       var value = stream.current();
       if (isSystemKeynode(value)) {
         return 'scs-system-keynode';
+      } else if (value === '.' || value === '..') {
+        return null;
       }
       return 'scs-system-idtf';
     }
@@ -112,14 +158,30 @@ module.exports = function ScsMode(CodeMirror) {
   }
 
   function collect_special_symbols(stream, state) {
-    if (stream.match('(*') || stream.match('*)')) {
+    if (stream.match('(*') || stream.match('*)') ||
+        stream.match('{') || stream.match('}'))
+    {
       return 'scs-symbol';
+    }
+
+    if (stream.match('[')) {
+      // check if current content is a contour
+      if (stream.match('*')) {
+        content_brackets_stack.push(ContentType.Contour);
+      } else {
+        content_brackets_stack.push(ContentType.Link);
+      }
+      return 'scs-link-content-bracket';
+    }
+
+    if (stream.match('*]') || stream.match(']')) {
+      return 'scs-link-content-bracket';
     }
 
     if (stream.match(';')) {
       return 'scs-delim';
     }
-    
+
     return null;
   }
 
@@ -129,7 +191,29 @@ module.exports = function ScsMode(CodeMirror) {
     },
 
     token: function (stream, state) {
-      var res = collect_system_idtf(stream, state);
+      var res = null;
+
+      if (content_brackets_stack.length > 0) {
+        var content_type = content_brackets_stack.pop();
+        if (content_type === ContentType.Link) {
+          res = collect_sc_link_content(stream, state);
+          if (res) {
+            return res;
+          }
+        }
+      }
+
+      res = collect_comments(stream, state);
+      if (res) {
+        return res;
+      }
+
+      res = collect_file_link(stream, state);
+      if (res) {
+        return res;
+      }
+
+      res = collect_system_idtf(stream, state);
       if (res) {
         return res;
       }

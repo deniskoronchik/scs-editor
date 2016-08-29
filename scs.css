@@ -33,6 +33,23 @@
   color: #88aa88;
 }
 
+.cm-scs-link-content-bracket {
+  color: #fff;
+}
+
+.cm-scs-link-content {
+  color: #FFC600;
+}
+
+.cm-scs-comment {
+  color: #888;
+}
+
+.cm-scs-file-link {
+  color: #C7DD0C;
+  font-style: italic;
+}
+
 .cm-scs-edge, .cm-scs-delim {
   color: #EFC090;
   font-weight: bold;
@@ -40,7 +57,7 @@
 }
 
 .cm-scs-symbol {
-  color: #79ABFF;
+  color: #fff;
 }
 
 .cm-scs-delim {
