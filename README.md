@@ -21,6 +21,17 @@ var editor = new scs_editor.ScsEditor({
 });
 ```
 
+In html:
+```html
+<head>
+  ...
+  <link rel="stylesheet" type="text/css" href="node_modules/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="node_modules/codemirror/addon/hint/show-hint.css">
+  ...
+  <script src="node_modules/codemirror/lib/codemirror.js"></script>
+</head>
+```
+
 Develop:
 ```
 git clone https://github.com/deniskoronchik/scs-editor.git
