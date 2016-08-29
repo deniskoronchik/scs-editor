@@ -7,7 +7,7 @@ npm install https://github.com/deniskoronchik/scs-editor.git
 ```
 
 Usage
-```
+```javascript
 var scs_editor = require('scs-editor');
 ...
 var editor = new scs_editor.ScsEditor({
