@@ -1,55 +1,7 @@
-var system_keynodes = [
-  'sc_edge_const',
-  'sc_edge_var',
-  'sc_arc_common_const',
-  'sc_arc_common_var',
-  'sc_arc_access_var_pos_perm',
-  'sc_arc_access_const_neg_perm',
-  'sc_arc_access_var_neg_perm',
-  'sc_arc_access_const_fuz_perm',
-  'sc_arc_access_var_fuz_perm',
-  'sc_arc_access_const_pos_temp',
-  'sc_arc_access_var_pos_temp',
-  'sc_arc_access_const_neg_temp',
-  'sc_arc_access_var_neg_temp',
-  'sc_arc_access_const_fuz_temp',
-  'sc_arc_access_var_fuz_temp',
-  'sc_const',
-  'sc_var',
-  'sc_type_node',
-  'sc_node_not_binary_tuple',
-  'sc_node_struct',
-  'sc_node_role_relation',
-  'sc_node_norole_relation',
-  'sc_node_not_relation',
-  'sc_node_abstract',
-  'sc_node_material'
-];
-
-var edges = [
-  '>', '<',
-  '->','<-',
-  '<>',
-  '..>', '<..',
-  '<=>',
-  '_<=>',
-  '=>', '<=',
-  '_=>', '_<=',
-  '_->', '_<-',
-  '-|>', '<|-',
-  '_-|>', '_<|-',
-  '-/>', '</-',
-  '_-/>', '_</-',
-  '~>', '<~',
-  '_~>', '_<~',
-  '~|>', '<|~',
-  '_~|>', '_<|~',
-  '~/>', '</~',
-  '_~/>', '_</~'
-];
+var hint = require('./scs-hint');
 
 function isSystemKeynode(value) {
-  return (system_keynodes.indexOf(value) >= 0);
+  return (hint.system_keynodes.indexOf(value) >= 0);
 }
 
 /// --------------
@@ -150,8 +102,8 @@ module.exports = function ScsMode(CodeMirror) {
   }
 
   function collect_edge(stream, state) {
-    for (var e = 0; e < edges.length; ++e) {
-      if (stream.match(edges[e]))
+    for (var e = 0; e < hint.edges.length; ++e) {
+      if (stream.match(hint.edges[e]))
         return 'scs-edge';
     }
     return null;

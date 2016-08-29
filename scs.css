@@ -22,6 +22,10 @@
   border-left: 2px solid white;
 }
 
+.CodeMirror-hints {
+  background-color: #1E1E1E !important;
+}
+
 .cm-scs-system-keynode {
   font-weight: bold;
   color: #D25252;
