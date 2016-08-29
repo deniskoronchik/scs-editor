@@ -10,7 +10,8 @@ fix -> [*
 vars = {
 	_var1;
 	_var2	
-};
+};;
+
 // comment
 
 
