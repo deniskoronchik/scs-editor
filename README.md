@@ -3,7 +3,7 @@ Html base editor for scs-language
 ![Screenshot](https://raw.githubusercontent.com/deniskoronchik/scs-editor/master/screenshot.png)
 
 Features:
-* Syntax highlight
+* Syntax highlight (Ctrl + Space)
 * Simple embiding into any projects
 
 Install:
