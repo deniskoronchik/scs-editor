@@ -15,6 +15,9 @@ var code_0 = '0'.charCodeAt(0);
 var code_9 = '9'.charCodeAt(0);
 var _code = '_'.charCodeAt(0);
 var pt_code = '.'.charCodeAt(0);
+var space_code = ' '.charCodeAt(0);
+var tab_code = '\t'.charCodeAt(0);
+var endl_code = '\n'.charCodeAt(0);
 
 function system_idtf_checker() {
   var char_count = 0;
@@ -25,6 +28,9 @@ function system_idtf_checker() {
     if (char_count > 2 && code == pt_code) {
       return false;
     }
+
+    if (code == space_code || code == tab_code || code == endl_code)
+      return false;
 
     if ((code >= A_code && code <= Z_code) ||
         (code >= a_code && code <= z_code) ||
@@ -155,29 +161,20 @@ module.exports = function ScsMode(CodeMirror) {
         }
       }
 
-      res = collect_comments(stream, state);
-      if (res) {
-        return res;
-      }
+      var func_order = [
+        collect_comments,
+        collect_file_link,
+        collect_edge,
+        collect_system_idtf,
+        collect_special_symbols
+      ];
 
-      res = collect_file_link(stream, state);
-      if (res) {
-        return res;
-      }
-
-      res = collect_system_idtf(stream, state);
-      if (res) {
-        return res;
-      }
-
-      res = collect_edge(stream, state);
-      if (res) {
-        return res;
-      }
-
-      res = collect_special_symbols(stream, state);
-      if (res) {
-        return res;
+      for (var i = 0; i < func_order.length; ++i)
+      {
+        var res = func_order[i](stream, state);
+        if (res) {
+          return res;
+        }
       }
 
       stream.next();

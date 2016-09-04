@@ -12,6 +12,10 @@ vars = {
 	_var2	
 };;
 
+// errors
+begin_el _-> end_el;;
+end_el _~> end_el2;;
+
 // comment
 
 
