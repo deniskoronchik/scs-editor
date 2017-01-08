@@ -26,6 +26,14 @@ function ScsEditorImpl(options) {
   return {
     setContent: (content) => {
       editor.setValue(content);
+    },
+
+    getContent: () => {
+      return editor.getValue();
+    },
+
+    refresh: () => {
+      editor.refresh();
     }
   }
 }
