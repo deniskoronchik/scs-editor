@@ -9,9 +9,23 @@
 
     <script src="../node_modules/codemirror/lib/codemirror.js"></script>
 
+    <style>
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: 0;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    </style>
   </head>
   <body style="height: 100%;">
-    <div id="test-container" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; margin: 0; box-sizing: border-box; width: 100%; height: 100%; object-fit: contain;">
+    <div id="test-container" class="container">
+    </div>
+    <div id="test-container2" class="container">
     </div>
     <script src="test-editor.js"></script>
   </body>

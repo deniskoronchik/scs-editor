@@ -24,7 +24,9 @@ function ScsEditorImpl(options) {
   });
 
   return {
-
+    setContent: (content) => {
+      editor.setValue(content);
+    }
   }
 }
 
